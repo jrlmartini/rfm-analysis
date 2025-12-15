@@ -1,8 +1,22 @@
 import io
 import math
+import subprocess
+import sys
 from datetime import datetime
 from itertools import product
 from pathlib import Path
+
+import importlib.util
+
+
+def ensure_dependencies():
+    required = ["matplotlib", "pandas", "seaborn", "streamlit", "openpyxl"]
+    missing = [pkg for pkg in required if importlib.util.find_spec(pkg) is None]
+    if missing:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", *missing])
+
+
+ensure_dependencies()
 
 import matplotlib.pyplot as plt
 import pandas as pd
